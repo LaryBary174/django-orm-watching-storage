@@ -1,3 +1,6 @@
+from datetime import datetime
+from django.utils.timezone import localtime
+
 from django.db import models
 
 
@@ -28,3 +31,22 @@ class Visit(models.Model):
                 if self.leaved_at else 'not leaved'
             )
         )
+
+    def get_duration(self):
+        if localtime(self.leaved_at):
+            duration = localtime(self.leaved_at) - localtime(self.entered_at)
+        else:
+            duration = datetime.now() - localtime(self.entered_at)
+        return duration
+
+
+    def is_visit_long(self, minutes=60):
+        duration_seconds = self.get_duration().total_seconds()
+        if duration_seconds / 60 > minutes :
+            return True
+        return False
+
+def format_duration(seconds):
+    hours = int(seconds) // 3600
+    minutes = (int(seconds) % 3600) // 60
+    return f'{hours}ч {minutes}мин'
