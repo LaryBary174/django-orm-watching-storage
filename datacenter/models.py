@@ -42,11 +42,6 @@ class Visit(models.Model):
 
     def is_visit_long(self, minutes=60):
         duration_seconds = self.get_duration().total_seconds()
-        if duration_seconds / 60 > minutes :
-            return True
-        return False
+        return (duration_seconds / 60) > minutes
 
-def format_duration(seconds):
-    hours = int(seconds) // 3600
-    minutes = (int(seconds) % 3600) // 60
-    return f'{hours}ч {minutes}мин'
+

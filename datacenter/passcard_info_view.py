@@ -1,6 +1,6 @@
 from datacenter.models import Passcard
 from datacenter.models import Visit
-from datacenter.models import format_duration
+from datacenter.formatting_units_for_temp import format_duration
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
